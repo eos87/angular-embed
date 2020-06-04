@@ -1,6 +1,7 @@
 'use strict';
 var gulp = require('gulp');
 var karma = require('karma').server;
+var Server = require('karma').Server;
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
@@ -74,10 +75,10 @@ gulp.task('jshint-src', function () {
  * Run test once and exit
  */
 gulp.task('test-src', function (done) {
-  karma.start({
+  new Server({
     configFile: __dirname + '/karma-src.conf.js',
     singleRun: true
-  }, done);
+  }, done).start();
 });
 
 /**

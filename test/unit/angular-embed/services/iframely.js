@@ -15,7 +15,7 @@ describe('iframely', function() {
     beforeEach(inject(function(iframelyService, _$httpBackend_) {
         httpBackend = _$httpBackend_;
         httpBackend
-            .when('JSONP', 'https://iframe.ly/api/iframely?callback=JSON_CALLBACK&api_key=undefined&url='+url)
+            .whenGET('https://iframe.ly/api/iframely?api_key=undefined&url='+url)
             .respond(response);
         iframely = iframelyService;
     }));
