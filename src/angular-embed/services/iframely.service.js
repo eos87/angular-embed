@@ -5,13 +5,18 @@
         // register the service in the provider and inject dependencies
         function iframelyService($resource) {
             return {
-                embed: function(url) {
-                    var api_key = provider.getKey();
-                    var resource = $resource('https://iframe.ly/api/iframely?api_key='+api_key+'&url='+url);
+                embed: function(url, oEmbed) {
+                    var mode = oEmbed === true ? 'oembed': 'iframely';
+                    var apiKey = provider.getKey();
+                    var resource = $resource('https://iframe.ly/api/'+mode+'?api_key='+apiKey+'&url='+url);
+
                     return resource.get().$promise.then(function(data) {
-                        // mimic oembed
-                        data.title = data.meta.title;
-                        data.provider_name = data.meta.site;
+                        if (mode !== 'oembed') {
+                            // mimic oembed
+                            data.title = data.meta.title;
+                            data.provider_name = data.meta.site;
+                        }
+
                         return data;
                     });
                 }
