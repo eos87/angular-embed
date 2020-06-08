@@ -4,12 +4,7 @@
     function noEmbedService($resource) {
         return {
             embed: function(url) {
-                var resource = $resource('https://noembed.com/embed?url='+url, {},
-                    {
-                        get: {
-                            method: 'JSONP'
-                        }
-                    });
+                var resource = $resource('https://noembed.com/embed?url='+url);
                 return resource.get().$promise;
             },
             providers: function() {
